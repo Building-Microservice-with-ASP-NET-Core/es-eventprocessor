@@ -1,13 +1,13 @@
-[![wercker status](https://app.wercker.com/status/675802ec89254d5ba1ace8fae4261688/m/master "wercker status")](https://app.wercker.com/project/byKey/675802ec89254d5ba1ace8fae4261688)
+[![wercker status](https://app.wercker.com/status/c21b8f7e1b269bb19530f00ad20053ad/s/master "wercker status")](https://app.wercker.com/project/byKey/c21b8f7e1b269bb19530f00ad20053ad)
 
 # Event Processor
-In an event sourcing model, an event processor service often has no restful endpoints. It is responsible for handling one or more inbound streams of events, performing some processing as a result of those events, and recording the events in the event store. The processing of inbound events usually results in the emission of other outbound events.
 
-In the case of the team management application used in the ES/CQRS chapter for the **Microservices with ASP.NET** book, this event processor reacts to incoming **MemberLocationRecorded** events. Each one of these events is recorded in the event store, and the location is also submitted to the _reality_ server (the service that exposes the efficient queries for the CQRS pattern). _After_ this happens, the real event processing happens.
+在事件溯源模式里，事件处理服务通常不提供 RESTful 端点。它负责处理一个或多个传入的事件流，基于事件执行处理过程，并将事件记录到事件存储设施中。传入事件的处事通常会产生一些传出的事件。
 
+在《ASP.NET Core 微服务实战》一书的事件溯源/CQRS章节中所涉及的团队管理应用中，这一事件处理器用于响应传入的 **MemberLocationRecorded** 事件。这些事件都被记录到事件存储设施中，而位置也被提交到 *事实* 服务（在 CQRS 模式中，用于暴露高效查询的服务），在这*之后*，实际的事件处理过程将会执行。
 
-## Processing Location Events
-Every **MemberLocationRecorded** event contains information including GPS coordinates, timestamps, as well as other meta-data that might include the source of the location report. The coordinates of the report are compared against the _current_ coordinates of all other team members. If the event processor determines that the location of an event is _near_ the location of another team member, it will emit a **ProximityDetectedEvent** event on a different stream.
+## 处理位置事件
 
-The application suite is then free to respond to **ProximityDetectedEvent** events however it chooses. In a real-world application, this might involve sending push notifications to mobile devices, sending websocket-style notifications through a third-party message broker to a reactive web application, etc.
+每个 **MemberLocationRecorded** 事件都包含 GPS 坐标信息、时间戳，还有一些其他元信息，比如事件报送来源等。报送的坐标将用于与其他团队成员的*当前*坐标作比较。如果事件处理器认为事件与某个团队成员相*接近*，它就会向另一个事件流产生一个 **ProximityDetectedEvent** 事件。
 
+应用之后就可以按自己的方式任意响应 **ProximityDetectedEvent** 事件。在真实世界的应用中，这可能会包含向移动设备发送推送通知，通过第三方消息分发服务向响应式应用发出 WebSocket 风格的通知等等。
