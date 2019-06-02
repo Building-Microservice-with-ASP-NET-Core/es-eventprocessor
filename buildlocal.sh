@@ -1,3 +1,3 @@
-rm -rf _builds _steps _projects _cache _temp
-wercker build --git-domain github.com --git-owner microservices-aspnetcore --git-repository es-eventprocessor
-rm -rf _builds _steps _projects _cache _temp 
+rm -rf .wercker
+wercker build --git-domain github.com --git-owner microservices-aspnetcore-zh --git-repository es-eventprocessor
+rm -rf .wercker
