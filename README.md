@@ -11,3 +11,10 @@
 每个 **MemberLocationRecorded** 事件都包含 GPS 坐标信息、时间戳，还有一些其他元信息，比如事件报送来源等。报送的坐标将用于与其他团队成员的*当前*坐标作比较。如果事件处理器认为事件与某个团队成员相*接近*，它就会向另一个事件流产生一个 **ProximityDetectedEvent** 事件。
 
 应用之后就可以按自己的方式任意响应 **ProximityDetectedEvent** 事件。在真实世界的应用中，这可能会包含向移动设备发送推送通知，通过第三方消息分发服务向响应式应用发出 WebSocket 风格的通知等等。
+
+
+docker run -itd --name redis-test -p 6379:6379 redis
+docker exec -it redis-test /bin/bash
+
+docker run -p 6379:6379 -v $PWD/data:/data --name redis4SXD -d redis redis-server --appendonly yes
+docker run --name redis4SXD -p 6379:6379 -d redis redis-server --appendonly yes --requirepass "398023"
