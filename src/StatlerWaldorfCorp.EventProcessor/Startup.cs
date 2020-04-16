@@ -23,7 +23,7 @@ namespace StatlerWaldorfCorp.EventProcessor
 
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: false)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: false)
                 .AddEnvironmentVariables();
 
             Configuration = builder.Build();
