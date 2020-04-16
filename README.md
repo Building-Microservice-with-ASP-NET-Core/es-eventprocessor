@@ -17,4 +17,4 @@ docker run -itd --name redis-test -p 6379:6379 redis
 docker exec -it redis-test /bin/bash
 
 docker run -p 6379:6379 -v $PWD/data:/data --name redis4SXD -d redis redis-server --appendonly yes
-docker run --name redis4SXD -p 6379:6379 -d redis redis-server --appendonly yes --requirepass "398023"
+docker run --name redis4SXD -p 6379:6379 -d redis redis-server --appendonly yes --requirepass "123456"
