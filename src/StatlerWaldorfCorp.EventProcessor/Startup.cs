@@ -16,10 +16,9 @@ namespace StatlerWaldorfCorp.EventProcessor
 {
     public class Startup
     {
-        public Startup(IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public Startup(IHostingEnvironment env)
         {
-            loggerFactory.AddConsole();
-            loggerFactory.AddDebug();
+         
 
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
