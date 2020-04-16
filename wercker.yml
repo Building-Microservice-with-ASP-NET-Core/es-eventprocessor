@@ -1,4 +1,3 @@
-box: mcr.microsoft.com/dotnet/core/sdk:2.2.300
 no-response-timeout: 10
 services:
     - name: rediscache
@@ -9,6 +8,7 @@ services:
 
 
 build:
+  box: mcr.microsoft.com/dotnet/core/sdk:3.1
   steps: 
     - script:
         name: restore
@@ -75,10 +75,12 @@ build:
             cp appsettings.json bin/Debug/netcoreapp2.2/                  
             export RABBIT_URL=amqp://$RABBITMQ_PORT_5672_TCP_ADDR:5672
             export AMQP__URI=$RABBIT_URL
-            export REDIS__CONFIGSTRING=$REDISCACHE_PORT_6379_TCP_ADDR            
+            export REDIS__CONFIGSTRING=$REDISCACHE_PORT_6379_TCP_ADDR       
+            echo $AMQP__URI
             dotnet test    
 
 deploy:
+  box: mcr.microsoft.com/dotnet/core/aspnet:3.1
   steps:
     - internal/docker-push:
         cwd: $WERCKER_OUTPUT_DIR/app
