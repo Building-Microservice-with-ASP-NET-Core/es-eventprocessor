@@ -10,64 +10,64 @@ services:
 build:
   box: mcr.microsoft.com/dotnet/core/sdk:2.2
   steps: 
-    - script:
-        name: restore
-        cwd: src/StatlerWaldorfCorp.EventProcessor
-        code: |
-          dotnet restore
-    - script:
-        name: build
-        cwd: src/StatlerWaldorfCorp.EventProcessor
-        code: |
-          dotnet build  
-    - script:
-        name: test-restore
-        cwd: test/StatlerWaldorfCorp.EventProcessor.Tests
-        code: |
-           dotnet restore
-    - script:
-        name: test-build
-        cwd: test/StatlerWaldorfCorp.EventProcessor.Tests
-        code: |
-          dotnet build
-    - script:
-        name: test-run
-        cwd: test/StatlerWaldorfCorp.EventProcessor.Tests
-        code: |
-          dotnet test
+#   - script:
+#       name: restore
+#       cwd: src/StatlerWaldorfCorp.EventProcessor
+#       code: |
+#         dotnet restore
+#   - script:
+#       name: build
+#       cwd: src/StatlerWaldorfCorp.EventProcessor
+#       code: |
+#         dotnet build  
+#   - script:
+#       name: test-restore
+#       cwd: test/StatlerWaldorfCorp.EventProcessor.Tests
+#       code: |
+#          dotnet restore
+#   - script:
+#       name: test-build
+#       cwd: test/StatlerWaldorfCorp.EventProcessor.Tests
+#       code: |
+#         dotnet build
+#   - script:
+#       name: test-run
+#       cwd: test/StatlerWaldorfCorp.EventProcessor.Tests
+#       code: |
+#         dotnet test
 # Packaging...
-
-    - script:
-        name: publish
-        cwd: src/StatlerWaldorfCorp.EventProcessor
-        code: |
-          dotnet publish -o publish  
-    - script:
-        name: copy binary
-        cwd: src/StatlerWaldorfCorp.EventProcessor
-        code: |
-          cp -r . $WERCKER_OUTPUT_DIR/app 
-    - script:
-        name: copy entrypoint
-        code: |
-          cp docker_entrypoint.sh $WERCKER_OUTPUT_DIR/app
-          ls $WERCKER_OUTPUT_DIR/app
-    - script:
-        name: copy config
-        cwd: src/StatlerWaldorfCorp.EventProcessor
-        code: |
-          cp appsettings*json $WERCKER_OUTPUT_DIR/app/publish
-          mkdir -p $WERCKER_OUTPUT_DIR/app/publish/app/tmp                    
-    - script:
-        name: integration-restore
-        cwd: test/StatlerWaldorfCorp.EventProcessor.Tests.Integration
-        code: |
-            dotnet restore
-    - script:
-        name: integration-build
-        cwd: test/StatlerWaldorfCorp.EventProcessor.Tests.Integration
-        code: |                        
-            dotnet build
+#
+#   - script:
+#       name: publish
+#       cwd: src/StatlerWaldorfCorp.EventProcessor
+#       code: |
+#         dotnet publish -o publish  
+#   - script:
+#       name: copy binary
+#       cwd: src/StatlerWaldorfCorp.EventProcessor
+#       code: |
+#         cp -r . $WERCKER_OUTPUT_DIR/app 
+#   - script:
+#       name: copy entrypoint
+#       code: |
+#         cp docker_entrypoint.sh $WERCKER_OUTPUT_DIR/app
+#         ls $WERCKER_OUTPUT_DIR/app
+#   - script:
+#       name: copy config
+#       cwd: src/StatlerWaldorfCorp.EventProcessor
+#       code: |
+#         cp appsettings*json $WERCKER_OUTPUT_DIR/app/publish
+#         mkdir -p $WERCKER_OUTPUT_DIR/app/publish/app/tmp                    
+#   - script:
+#       name: integration-restore
+#       cwd: test/StatlerWaldorfCorp.EventProcessor.Tests.Integration
+#       code: |
+#           dotnet restore
+#   - script:
+#       name: integration-build
+#       cwd: test/StatlerWaldorfCorp.EventProcessor.Tests.Integration
+#       code: |                        
+#           dotnet build
     - script:
         name: integration-run
         cwd: test/StatlerWaldorfCorp.EventProcessor.Tests.Integration
@@ -76,7 +76,13 @@ build:
             export RABBIT_URL=amqp://$RABBITMQ_PORT_5672_TCP_ADDR:5672/
             export AMQP__URI=$RABBIT_URL
             export REDIS__CONFIGSTRING=$REDISCACHE_PORT_6379_TCP_ADDR       
-            echo $AMQP__URI
+            echo url:$AMQP__URI
+            echo port:$RABBITMQ_PORT_5672_TCP_PORT
+            echo RABBITMQ_VHOST:$RABBITMQ_VHOST
+            echo RABBITMQ_USERNAME:$RABBITMQ_USERNAME
+            echo RABBITMQ_PASSWORD:$RABBITMQ_PASSWORD
+            echo RABBITMQ_HOSTNAME:$RABBITMQ_HOSTNAME
+            echo RABBITMQ_HOST:$RABBITMQ_HOST
             dotnet test    
 
 deploy:
