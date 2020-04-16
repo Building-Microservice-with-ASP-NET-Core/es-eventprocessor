@@ -67,15 +67,11 @@ build:
 #       name: integration-build
 #       cwd: test/StatlerWaldorfCorp.EventProcessor.Tests.Integration
 #       code: |                        
-#           dotnet build
-
-
-          # cp appsettings.json bin/Debug/netcoreapp2.2/      
+#           dotnet build 
     - script:
         name: integration-run
         cwd: test/StatlerWaldorfCorp.EventProcessor.Tests.Integration
-        code: |      
-              
+        code: |                    
             export RABBIT_URL=amqp://$RABBITMQ_PORT_5672_TCP_ADDR:5672/
             export AMQP__URI=$RABBIT_URL
             export REDIS__CONFIGSTRING=$REDISCACHE_PORT_6379_TCP_ADDR       
